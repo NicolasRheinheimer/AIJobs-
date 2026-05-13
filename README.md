@@ -3,7 +3,7 @@
 
 <br>
 
-![Main Dashboard](images/dashboard-preview.png)
+![Main Dashboard](Images/dashboard-preview.png)
 
 - The dashboard interface and metrics were localized to Portuguese to better serve the target audience and demonstrate data translation techniques using Power Query (M Language).
 ---
