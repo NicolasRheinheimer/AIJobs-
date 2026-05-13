@@ -1,0 +1,5 @@
+-- Check table columns
+
+SELECT column_name
+FROM information_schema.columns
+WHERE table_name = 'ai_jobs_affected';

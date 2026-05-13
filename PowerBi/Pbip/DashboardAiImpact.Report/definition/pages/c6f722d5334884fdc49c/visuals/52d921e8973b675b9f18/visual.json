@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "52d921e8973b675b9f18",
+  "position": {
+    "x": 0,
+    "y": 513.33333333333337,
+    "z": 0,
+    "height": 206.66666666666669,
+    "width": 323.33333333333337,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ai_impact"
+                    }
+                  },
+                  "Property": "ai_adoption_level"
+                }
+              },
+              "queryRef": "ai_impact.ai_adoption_level",
+              "nativeQueryRef": "ai_adoption_level"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ai_impact"
+                        }
+                      },
+                      "Property": "productivity_change_percent"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "Sum(ai_impact.productivity_change_percent)",
+              "nativeQueryRef": "Contagem de productivity_change_percent",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ai_impact"
+                        }
+                      },
+                      "Property": "job_satisfaction"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "Sum(ai_impact.job_satisfaction)",
+              "nativeQueryRef": "Contagem de job_satisfaction"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

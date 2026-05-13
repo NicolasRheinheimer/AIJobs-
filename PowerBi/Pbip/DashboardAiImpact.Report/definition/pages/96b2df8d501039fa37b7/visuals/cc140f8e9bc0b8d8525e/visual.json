@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "cc140f8e9bc0b8d8525e",
+  "position": {
+    "x": 925,
+    "y": 280,
+    "z": 5000,
+    "height": 316.66666666666669,
+    "width": 355,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "job_info"
+                    }
+                  },
+                  "Property": "industry"
+                }
+              },
+              "queryRef": "job_info.industry",
+              "nativeQueryRef": "industry",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "job_info"
+                        }
+                      },
+                      "Property": "work_hours_per_week"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(job_info.work_hours_per_week)",
+              "nativeQueryRef": "Média de work_hours_per_week"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ai_impact"
+                        }
+                      },
+                      "Property": "productivity_change_percent"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(ai_impact.productivity_change_percent)",
+              "nativeQueryRef": "Média de productivity_change_percent"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "job_info"
+                      }
+                    },
+                    "Property": "work_hours_per_week"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

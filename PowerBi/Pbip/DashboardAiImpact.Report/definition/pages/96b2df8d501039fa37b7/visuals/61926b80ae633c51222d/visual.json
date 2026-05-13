@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "61926b80ae633c51222d",
+  "position": {
+    "x": 355,
+    "y": 396.66666666666669,
+    "z": 4000,
+    "height": 286.66666666666669,
+    "width": 285,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "hundredPercentStackedColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "employees"
+                    }
+                  },
+                  "Property": "education_level"
+                }
+              },
+              "queryRef": "employees.education_level",
+              "nativeQueryRef": "Contagem de education_level",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ai_impact"
+                    }
+                  },
+                  "Property": "job_status"
+                }
+              },
+              "queryRef": "ai_impact.job_status",
+              "nativeQueryRef": "Contagem de job_status1"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "employees"
+                        }
+                      },
+                      "Property": "employee_id"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "CountNonNull(employees.employee_id)",
+              "nativeQueryRef": "Contagem de employee_id1"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "employees"
+                      }
+                    },
+                    "Property": "employee_id"
+                  }
+                },
+                "Function": 2
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,72 @@
+table job_info
+	lineageTag: 7fb61cff-194a-4b1d-9703-8494e87e7270
+
+	column employee_id
+		dataType: string
+		lineageTag: aac75f8c-8580-4d3a-bacc-501483a791ea
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column industry
+		dataType: string
+		lineageTag: e263ab6a-c55b-4061-afee-d491bd829bed
+		summarizeBy: none
+		sourceColumn: industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column job_role
+		dataType: string
+		lineageTag: 22bf29d8-4d9c-4955-86e8-5427b6be1ac5
+		summarizeBy: none
+		sourceColumn: job_role
+
+		annotation SummarizationSetBy = Automatic
+
+	column years_experience
+		dataType: int64
+		formatString: 0
+		lineageTag: ad2b83cf-bbaa-44e0-891b-53da99e7bcb1
+		summarizeBy: sum
+		sourceColumn: years_experience
+
+		annotation SummarizationSetBy = Automatic
+
+	column work_hours_per_week
+		dataType: int64
+		formatString: 0
+		lineageTag: f5b3d598-ec4a-49ae-8ac2-28e0cee65fff
+		summarizeBy: sum
+		sourceColumn: work_hours_per_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column remote_work
+		dataType: string
+		lineageTag: bfbcd7fa-0f55-418a-8567-77adfd947262
+		summarizeBy: none
+		sourceColumn: remote_work
+
+		annotation SummarizationSetBy = Automatic
+
+	partition job_info = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("localhost", "jobsaffected"),
+				    public_job_info = Fonte{[Schema="public",Item="job_info"]}[Data],
+				    #"Valor Substituído" = Table.ReplaceValue(public_job_info,"IT","TI",Replacer.ReplaceText,{"industry"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","Healthcare","Saúde",Replacer.ReplaceText,{"industry"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","Finance","Finanças",Replacer.ReplaceText,{"industry"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2","Retail","Varejo",Replacer.ReplaceText,{"industry"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Valor Substituído3","Education","Educação",Replacer.ReplaceText,{"industry"}),
+				    #"Valor Substituído5" = Table.ReplaceValue(#"Valor Substituído4","Manufacturing","Indústria",Replacer.ReplaceText,{"industry"})
+				in
+				    #"Valor Substituído5"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

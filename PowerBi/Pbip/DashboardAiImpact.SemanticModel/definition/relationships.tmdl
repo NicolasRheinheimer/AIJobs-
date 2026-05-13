@@ -1,0 +1,12 @@
+relationship AutoDetected_21debbc3-e5d4-4cb5-a21a-6cf8cf57b87f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: job_info.employee_id
+	toColumn: employees.employee_id
+
+relationship AutoDetected_92fa9e5d-d6b8-4f8a-a60d-95c98b8233af
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: ai_impact.employee_id
+	toColumn: employees.employee_id
+

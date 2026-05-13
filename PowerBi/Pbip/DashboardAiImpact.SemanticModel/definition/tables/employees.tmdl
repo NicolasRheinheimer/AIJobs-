@@ -1,0 +1,101 @@
+table employees
+	lineageTag: c7eeec46-57d2-497c-a419-ae2420e5a4c4
+
+	column employee_id
+		dataType: string
+		lineageTag: da6f3a91-5a45-48f1-af7a-9ed009a1e03a
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: int64
+		formatString: 0
+		lineageTag: 3982aaf6-0f5f-4d0f-b93d-f019e2642912
+		summarizeBy: sum
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"employees","TableItemName":"age (5 em 5)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column gender
+		dataType: string
+		lineageTag: 638cfdec-3038-4d39-9737-cca940526944
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column education_level
+		dataType: string
+		lineageTag: 1e1d0308-a34d-4a9e-ba27-f9e9f015dd85
+		summarizeBy: none
+		sourceColumn: education_level
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'age (5 em 5)' =
+			IF(
+				ISBLANK('employees'[age]),
+				BLANK(),
+				INT('employees'[age] / 5) * 5
+			)
+		formatString: 0
+		lineageTag: 518b2d45-e60b-4e9d-be33-3f81a8ed7418
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "employees"
+				          }
+				        },
+				        "Property": "age"
+				      }
+				    }
+				  ],
+				  "binningMetadata": {
+				    "binSize": {
+				      "value": 5.0,
+				      "unit": 0
+				    }
+				  }
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"e","Entity":"employees"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"e"}},"Property":"age"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"e"}},"Property":"age"}},"Size":5.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordem_Educacao =
+			
+			SWITCH( 'employees'[education_level],
+			    "High School", 1,
+			    "Bachelor", 2,
+			    "Master", 3,
+			    "PhD", 4,
+			    5
+			)
+		formatString: 0
+		lineageTag: b6f00a60-dda8-44be-a4c5-8756b6cfe79b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition employees = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("localhost", "jobsaffected"),
+				    public_employees = Fonte{[Schema="public",Item="employees"]}[Data]
+				in
+				    public_employees
+

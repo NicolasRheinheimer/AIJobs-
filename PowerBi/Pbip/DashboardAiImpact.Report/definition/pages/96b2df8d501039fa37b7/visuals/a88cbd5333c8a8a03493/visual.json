@@ -1,0 +1,125 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "a88cbd5333c8a8a03493",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 1000,
+    "height": 306.66666666666669,
+    "width": 416.66666666666669,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ai_impact"
+                    }
+                  },
+                  "Property": "ai_adoption_level"
+                }
+              },
+              "queryRef": "ai_impact.ai_adoption_level",
+              "nativeQueryRef": "ai_adoption_level",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "job_info"
+                    }
+                  },
+                  "Property": "remote_work"
+                }
+              },
+              "queryRef": "job_info.remote_work",
+              "nativeQueryRef": "remote_work"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ai_impact"
+                        }
+                      },
+                      "Property": "job_satisfaction"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(ai_impact.job_satisfaction)",
+              "nativeQueryRef": "Média de job_satisfaction"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "ai_impact"
+                      }
+                    },
+                    "Property": "job_satisfaction"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "start": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            },
+            "end": {
+              "expr": {
+                "Literal": {
+                  "Value": "7D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
