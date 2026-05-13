@@ -3,7 +3,7 @@
 
 <br>
 
-![Main Dashboard](images/dashboard-preview.png)
+![Main Dashboard](Images/dashboard-preview.png)
 
 
 
